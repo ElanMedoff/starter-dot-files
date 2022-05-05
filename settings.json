@@ -1,0 +1,56 @@
+{
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.minimap.enabled": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.linkedEditing": true,
+  "editor.autoClosingBrackets": "always",
+  "editor.smoothScrolling": true,
+  //
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  //
+  "workbench.activityBar.visible": false,
+  "workbench.startupEditor": "none",
+  "workbench.iconTheme": "vscode-icons",
+  //
+  "window.zoomLevel": 2,
+  "extensions.ignoreRecommendations": true,
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  //
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": false,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": false,
+  "vim.overrideCopy": true,
+  "vim.mouseSelectionGoesIntoVisualMode": false,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["E"],
+      "after": ["g", "e"]
+    },
+    {
+      "before": ["q"],
+      "after": ["i"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["v"],
+      "after": [""]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.cursorStylePerMode.normal": "block-outline",
+  "vim.cursorStylePerMode.visual": "block-outline",
+  "vim.cursorStylePerMode.visualblock": "block-outline",
+  "vim.cursorStylePerMode.visualline": "block-outline",
+  "vim.cursorStylePerMode.replace": "block-outline",
+  "vim.cursorStylePerMode.insert": "line"
+}
