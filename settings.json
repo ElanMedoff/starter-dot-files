@@ -9,19 +9,19 @@
   "editor.linkedEditing": true,
   "editor.autoClosingBrackets": "always",
   "editor.smoothScrolling": true,
-  //
+
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
   "explorer.compactFolders": false,
-  //
+
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
   "workbench.iconTheme": "vscode-icons",
-  //
+
   "window.zoomLevel": 2,
   "extensions.ignoreRecommendations": true,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  //
+
   "vim.easymotion": true,
   "vim.sneak": true,
   "vim.incsearch": true,

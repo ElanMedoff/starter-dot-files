@@ -21,6 +21,7 @@ call plug#end()
 " remaps
 let mapleader = " "
 nnoremap E ge
+" v in visual mode doesn't exit
 vnoremap v ""
 inoremap ( ()<Left>
 inoremap [ []<Left>
