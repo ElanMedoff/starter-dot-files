@@ -1,49 +1,80 @@
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'alvan/vim-closetag'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'itchyny/lightline.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'justinmk/vim-sneak'
-Plug 'tomasiser/vim-code-dark'
+Plug 'Yggdroot/indentLine'
+Plug 'neoclide/coc.nvim'
 Plug 'mg979/vim-visual-multi'
 Plug 'psliwka/vim-smoothie'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/vim-surround'
 Plug 'preservim/nerdcommenter'
+Plug 'tomasiser/vim-code-dark'
 
-" nerd tree
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
 
+lua require('init')
+
 " remaps
-let mapleader = " "
-nnoremap E ge
-" v in visual mode doesn't exit
+
 vnoremap v ""
-inoremap ( ()<Left>
-inoremap [ []<Left>
-inoremap { {}<Left>
+
+" move lines with alt j, alt k
+nnoremap ∆ :m .+1<cr>==
+nnoremap ˚ :m .-2<cr>==
+inoremap ∆ <esc>:m .+1<cr>==gi
+inoremap ˚ <esc>:m .-2<cr>==gi
+vnoremap ∆ :m '>+1<cr>gv=gv
+vnoremap ˚ :m '<-2<cr>gv=gv
+
+let mapleader=" "
+imap <C-j> (
+imap <C-k> [
+imap <C-l> {
+imap <C-h> =
+
+map <leader>gd :tabdo :Gvdiffsplit<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+map <leader>tn :tabnext<cr>
+map <leader>tc :tabclose<cr>
+map <leader>to :tabonly<cr>
+
+" copies to clipboard
+set clipboard=unnamedplus
 
 " ui
 set number
 set cursorline
-colorscheme codedark
 set noerrorbells
 set title
 set mouse=a
 set confirm
 set showmode
-set clipboard=unnamedplus
-autocmd VimEnter * NERDTree | wincmd p
+colorscheme codedark
 
 " search
 set ignorecase
-set incsearch " partial matches
-set smartcase
-set hlsearch " highlight matches
+set incsearch
+set hlsearch
+map <leader>c/ /\C<left><left>
+map <leader>w/ /\<\><left><left>
+map <leader>cw /\<\>\C<left><left><left><left>
+map <esc> :noh<cr>
+
+" fzf
+noremap <leader>rg :Rg
 
 " text rendering
 set display+=lastline
@@ -58,35 +89,110 @@ set expandtab
 set shiftwidth=2
 set smarttab
 
-" nerd tree
-let g:NERDTreeIgnore = ['^node_modules$']
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-nnoremap <Leader>t :NERDTreeToggle<Enter>
-nnoremap <Leader>f <c-w>w
+nnoremap <leader>f <c-w>w
 
-" sync open file with NERDTree
-function! IsNERDTreeOpen()
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_respect_buf_cwd = 1
+let g:nvim_tree_create_in_closed_folder = 1
 
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
+let g:nvim_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
+    \ 'folder_arrows': 1,
+    \ }
 
-autocmd BufEnter * call SyncTree()
+" will show icon by default if no icon is provided
+let g:nvim_tree_icons = {
+    \ 'default': "",
+    \ 'symlink': "",
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★",
+    \   'deleted': "",
+    \   'ignored': "◌"
+    \   },
+    \ 'folder': {
+    \   'arrow_open': "",
+    \   'arrow_closed': "",
+    \   'default': "",
+    \   'open': "",
+    \   'empty': "",
+    \   'empty_open': "",
+    \   'symlink': "",
+    \   'symlink_open': "",
+    \   }
+    \ }
 
-" ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_user_command = 'find %s -type f'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>b :NvimTreeToggle<CR>
+set termguicolors 
 
 " nerd commenter
 filetype plugin on
+
+" close tag
+let g:closetag_filenames = '*.html,*.jsx,*.tsx'
+let g:closetag_regions =  {
+  \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+  \ 'javascript.jsx': 'jsxRegion',
+  \ }
+
+" coc
+" basic setup
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> gh :call ShowDocumentation()<cr>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+let g:coc_global_extensions = [
+\ 'coc-tsserver',
+\ 'coc-prettier',
+\ 'coc-json',
+\ 'coc-eslint',
+\ ]
+
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+map <leader>pp :Prettier<cr>
+
+" telescope
+nnoremap <C-p> <cmd>Telescope find_files<cr>
