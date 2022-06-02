@@ -1,5 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'romgrk/barbar.nvim'
+Plug 'akinsho/toggleterm.nvim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround'
@@ -23,11 +25,13 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
-
+ 
 lua require('init')
 
 " remaps
 
+" TODO: figure out when to recursively remap
+noremap q i
 vnoremap v ""
 
 " move lines with alt j, alt k
@@ -46,10 +50,9 @@ imap <C-h> =
 
 map <leader>gd :tabdo :Gvdiffsplit<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
-map <leader>tn :tabnext<cr>
 map <leader>tc :tabclose<cr>
-map <leader>to :tabonly<cr>
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
 
 " copies to clipboard
 set clipboard=unnamedplus
@@ -63,6 +66,7 @@ set mouse=a
 set confirm
 set showmode
 colorscheme codedark
+set noswapfile
 
 " search
 set ignorecase
@@ -72,9 +76,6 @@ map <leader>c/ /\C<left><left>
 map <leader>w/ /\<\><left><left>
 map <leader>cw /\<\>\C<left><left><left><left>
 map <esc> :noh<cr>
-
-" fzf
-noremap <leader>rg :Rg
 
 " text rendering
 set display+=lastline
@@ -89,6 +90,30 @@ set expandtab
 set shiftwidth=2
 set smarttab
 
+" integrated terminal
+autocmd TermEnter term://*toggleterm#*
+      \ tnoremap <silent><C-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+map <C-t> :ToggleTerm size=50 direction=vertical<CR>
+
+" barbar
+nnoremap <leader>tp :BufferPrevious<CR>
+nnoremap <leader>tn :BufferNext<CR>
+nnoremap <leader>t1 :BufferGoto 1<CR>
+nnoremap <leader>t2 :BufferGoto 2<CR>
+nnoremap <leader>t3 :BufferGoto 3<CR>
+nnoremap <leader>t4 :BufferGoto 4<CR>
+nnoremap <leader>t5 :BufferGoto 5<CR>
+nnoremap <leader>t6 :BufferGoto 6<CR>
+nnoremap <leader>t7 :BufferGoto 7<CR>
+nnoremap <leader>t8 :BufferGoto 8<CR>
+nnoremap <leader>t9 :BufferGoto 9<CR>
+nnoremap <leader>t0 :BufferLast<CR>
+nnoremap <silent>mt :BufferPick<CR>
+
+" fzf
+noremap <leader>rg :Rg 
+
+"nerd tree
 nnoremap <leader>f <c-w>w
 
 let g:nvim_tree_git_hl = 1
@@ -130,6 +155,7 @@ let g:nvim_tree_icons = {
     \ }
 
 nnoremap <leader>b :NvimTreeToggle<CR>
+nnoremap <leader>ee :NvimTreeFindFile<CR>
 set termguicolors 
 
 " nerd commenter
