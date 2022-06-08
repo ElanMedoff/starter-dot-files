@@ -17,23 +17,15 @@ Plug 'psliwka/vim-smoothie'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'tomasiser/vim-code-dark'
-
-" telescope
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
- 
 lua require('init')
+ 
+let mapleader=" "
 
 " remaps
-
-" TODO: figure out when to recursively remap
-noremap q i
-vnoremap v ""
-
 " move lines with alt j, alt k
 nnoremap ∆ :m .+1<cr>==
 nnoremap ˚ :m .-2<cr>==
@@ -42,17 +34,23 @@ inoremap ˚ <esc>:m .-2<cr>==gi
 vnoremap ∆ :m '>+1<cr>gv=gv
 vnoremap ˚ :m '<-2<cr>gv=gv
 
-let mapleader=" "
 imap <C-j> (
 imap <C-k> [
 imap <C-l> {
 imap <C-h> =
 
-map <leader>gd :tabdo :Gvdiffsplit<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-map <leader>tc :tabclose<cr>
+noremap <Leader>gd :tabdo :Gvdiffsplit<cr>
+noremap <Leader>tc :tabclose<cr>
+noremap <Leader>' "
+noremap <Leader>w :BufferClose<cr>
+noremap <leader>sv :source $MYVIMRC<cr>
+
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
+nnoremap <Leader>] :cnext<cr>	
+nnoremap <Leader>[ :cprevious<cr>
+nnoremap q i
+vnoremap v ""
 
 " copies to clipboard
 set clipboard=unnamedplus
@@ -68,12 +66,16 @@ set showmode
 colorscheme codedark
 set noswapfile
 
+" force syntax rescan
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
 " search
 set ignorecase
 set incsearch
 set hlsearch
-map <leader>c/ /\C<left><left>
-map <leader>w/ /\<\><left><left>
+map <leader>/c /\C<left><left>
+map <leader>/w /\<\><left><left>
 map <leader>cw /\<\>\C<left><left><left><left>
 map <esc> :noh<cr>
 
@@ -98,20 +100,14 @@ map <C-t> :ToggleTerm size=50 direction=vertical<CR>
 " barbar
 nnoremap <leader>tp :BufferPrevious<CR>
 nnoremap <leader>tn :BufferNext<CR>
-nnoremap <leader>t1 :BufferGoto 1<CR>
-nnoremap <leader>t2 :BufferGoto 2<CR>
-nnoremap <leader>t3 :BufferGoto 3<CR>
-nnoremap <leader>t4 :BufferGoto 4<CR>
-nnoremap <leader>t5 :BufferGoto 5<CR>
-nnoremap <leader>t6 :BufferGoto 6<CR>
-nnoremap <leader>t7 :BufferGoto 7<CR>
-nnoremap <leader>t8 :BufferGoto 8<CR>
-nnoremap <leader>t9 :BufferGoto 9<CR>
 nnoremap <leader>t0 :BufferLast<CR>
 nnoremap <silent>mt :BufferPick<CR>
 
 " fzf
-noremap <leader>rg :Rg 
+noremap <leader>ag :Ag 
+nnoremap <C-p> :Files<cr>
+nnoremap <leader>zf :BLines<cr>
+nnoremap <leader>zh :History:<cr>
 
 "nerd tree
 nnoremap <leader>f <c-w>w
@@ -197,7 +193,6 @@ endfunction
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 nnoremap <silent> gh :call ShowDocumentation()<cr>
@@ -212,13 +207,7 @@ endfunction
 
 let g:coc_global_extensions = [
 \ 'coc-tsserver',
-\ 'coc-prettier',
-\ 'coc-json',
-\ 'coc-eslint',
+\ 'coc-prettier', 
+\ 'coc-json', 
+\ 'coc-eslint', 
 \ ]
-
-command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
-map <leader>pp :Prettier<cr>
-
-" telescope
-nnoremap <C-p> <cmd>Telescope find_files<cr>
