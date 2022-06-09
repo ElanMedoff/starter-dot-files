@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'romgrk/barbar.nvim'
+Plug 'morhetz/gruvbox'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -19,6 +19,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'tomasiser/vim-code-dark'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 lua require('init')
@@ -63,7 +64,7 @@ set title
 set mouse=a
 set confirm
 set showmode
-colorscheme codedark
+colorscheme gruvbox
 set noswapfile
 
 " force syntax rescan
@@ -178,12 +179,17 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
+" tab for autocomplete and snippet complete
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ CheckBackspace() ? "\<TAB>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+let g:coc_snippet_next = '<tab>'
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -210,4 +216,6 @@ let g:coc_global_extensions = [
 \ 'coc-prettier', 
 \ 'coc-json', 
 \ 'coc-eslint', 
+\ 'coc-snippets', 
 \ ]
+
