@@ -23,7 +23,7 @@ Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 lua require('init')
- 
+
 let mapleader=" "
 
 " remaps
@@ -35,16 +35,14 @@ inoremap ˚ <esc>:m .-2<cr>==gi
 vnoremap ∆ :m '>+1<cr>gv=gv
 vnoremap ˚ :m '<-2<cr>gv=gv
 
-imap <C-j> (
-imap <C-k> [
-imap <C-l> {
-imap <C-h> =
-
 noremap <Leader>gd :tabdo :Gvdiffsplit<cr>
 noremap <Leader>tc :tabclose<cr>
 noremap <Leader>' "
 noremap <Leader>w :BufferClose<cr>
 noremap <leader>sv :source $MYVIMRC<cr>
+
+nnoremap <leader>gb :Git blame<cr>
+nnoremap <leader>rr viwp
 
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
@@ -71,14 +69,22 @@ set noswapfile
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
+" folding
+set foldmethod=syntax
+set foldcolumn=1
+let javaScript_fold=1
+set foldlevelstart=99
+nnoremap <leader>u za
+
 " search
 set ignorecase
 set incsearch
 set hlsearch
-map <leader>/c /\C<left><left>
-map <leader>/w /\<\><left><left>
-map <leader>cw /\<\>\C<left><left><left><left>
-map <esc> :noh<cr>
+noremap <leader>/c /\C<left><left>
+noremap <leader>/w /\<\><left><left>
+noremap <leader>/t :noh<cr>
+noremap <leader>cw /\<\>\C<left><left><left><left>
+noremap <esc> :noh<cr>
 
 " text rendering
 set display+=lastline
@@ -101,11 +107,10 @@ map <C-t> :ToggleTerm size=50 direction=vertical<CR>
 " barbar
 nnoremap <leader>tp :BufferPrevious<CR>
 nnoremap <leader>tn :BufferNext<CR>
-nnoremap <leader>t0 :BufferLast<CR>
-nnoremap <silent>mt :BufferPick<CR>
+nnoremap <leader>to :BufferCloseAllButCurrent<CR>
 
 " fzf
-noremap <leader>ag :Ag 
+noremap <leader>ag :Ag
 nnoremap <C-p> :Files<cr>
 nnoremap <leader>zf :BLines<cr>
 nnoremap <leader>zh :History:<cr>
@@ -199,7 +204,8 @@ endfunction
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gu <Plug>(coc-references)
+nmap <leader>ac <Plug>(coc-codeaction)
 
 nnoremap <silent> gh :call ShowDocumentation()<cr>
 
