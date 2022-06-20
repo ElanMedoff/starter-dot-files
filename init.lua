@@ -1,4 +1,6 @@
-require('lightspeed').setup {}
+require'lightspeed'.setup {
+  ignore_case = true,
+}
 require("toggleterm").setup{}
 require'nvim-tree'.setup {
   open_on_tab = true,

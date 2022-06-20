@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'morhetz/gruvbox'
+Plug 'mhartington/oceanic-next'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -62,7 +62,7 @@ set title
 set mouse=a
 set confirm
 set showmode
-colorscheme gruvbox
+colorscheme oceanicnext
 set noswapfile
 
 " force syntax rescan
@@ -84,7 +84,6 @@ noremap <leader>/c /\C<left><left>
 noremap <leader>/w /\<\><left><left>
 noremap <leader>/t :noh<cr>
 noremap <leader>cw /\<\>\C<left><left><left><left>
-noremap <esc> :noh<cr>
 
 " text rendering
 set display+=lastline
@@ -114,6 +113,8 @@ noremap <leader>ag :Ag
 nnoremap <C-p> :Files<cr>
 nnoremap <leader>zf :BLines<cr>
 nnoremap <leader>zh :History:<cr>
+
+let g:fzf_preview_window = ['up:50%']
 
 "nerd tree
 nnoremap <leader>f <c-w>w
