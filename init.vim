@@ -1,32 +1,31 @@
 call plug#begin('~/.config/nvim/plugged')
-
+" themes
 Plug 'mhartington/oceanic-next'
-Plug 'akinsho/toggleterm.nvim'
-Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
+Plug 'Mofiqul/vscode.nvim'
+"fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+
+Plug 'akinsho/toggleterm.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'alvan/vim-closetag'
 Plug 'ggandor/lightspeed.nvim'
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim'
-Plug 'mg979/vim-visual-multi'
 Plug 'psliwka/vim-smoothie'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'preservim/nerdcommenter'
-Plug 'tomasiser/vim-code-dark'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'romgrk/barbar.nvim'
-
 call plug#end()
+
 lua require('init')
 
-let mapleader=" "
-
-" remaps
 " move lines with alt j, alt k
 nnoremap ∆ :m .+1<cr>==
 nnoremap ˚ :m .-2<cr>==
@@ -34,40 +33,33 @@ inoremap ∆ <esc>:m .+1<cr>==gi
 inoremap ˚ <esc>:m .-2<cr>==gi
 vnoremap ∆ :m '>+1<cr>gv=gv
 vnoremap ˚ :m '<-2<cr>gv=gv
-
-noremap <Leader>gd :tabdo :Gvdiffsplit<cr>
-noremap <Leader>tc :tabclose<cr>
-noremap <Leader>' "
-noremap <Leader>w :BufferClose<cr>
-noremap <leader>sv :source $MYVIMRC<cr>
-
+nnoremap <leader>gd :tabdo :Gvdiffsplit<cr>
+nnoremap <leader>' "
+nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>gb :Git blame<cr>
 nnoremap <leader>rr viwp
+nnoremap <leader>r; @:
+nnoremap <leader>o o<Esc>
+nnoremap <leader>O O<Esc>
+nnoremap <leader>qn :cnext<cr>	
+nnoremap <leader>qp :cprevious<cr>
 
-nnoremap <Leader>o o<Esc>
-nnoremap <Leader>O O<Esc>
-nnoremap <Leader>] :cnext<cr>	
-nnoremap <Leader>[ :cprevious<cr>
-nnoremap q i
-vnoremap v ""
-
-" copies to clipboard
-set clipboard=unnamedplus
+let mapleader=" "
+set clipboard=unnamedplus "copies to system clipboard
 
 " ui
-set number
-set cursorline
+set number "number lines
+set cursorline "highlight current line
 set noerrorbells
-set title
 set mouse=a
 set confirm
 set showmode
-colorscheme oceanicnext
 set noswapfile
 
-" force syntax rescan
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+" theme
+colorscheme oceanicnext
+"let g:vscode_italic_comment = 1
+"set background=dark
 
 " folding
 set foldmethod=syntax
@@ -78,53 +70,46 @@ nnoremap <leader>u za
 
 " search
 set ignorecase
-set incsearch
-set hlsearch
 noremap <leader>/c /\C<left><left>
 noremap <leader>/w /\<\><left><left>
 noremap <leader>/t :noh<cr>
 noremap <leader>cw /\<\>\C<left><left><left><left>
 
 " text rendering
-set display+=lastline
 set linebreak " avoid wrapping line in middle of word
-syntax enable
-set wrap
 
 " tab stuff
-set tabstop=4
-set softtabstop=0
-set expandtab
-set shiftwidth=2
-set smarttab
+set expandtab " use spaces in tabs
+set tabstop=4 " number of columns in a tab
+set softtabstop=4 " number of spaces to delete when deleting a tab
+set shiftwidth=4 " number of spaces to insert/delete when in insert mode
 
-" integrated terminal
+" toggleterm
 autocmd TermEnter term://*toggleterm#*
       \ tnoremap <silent><C-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
 map <C-t> :ToggleTerm size=50 direction=vertical<CR>
 
 " barbar
+nnoremap <Leader>tw :BufferClose<cr>
 nnoremap <leader>tp :BufferPrevious<CR>
 nnoremap <leader>tn :BufferNext<CR>
 nnoremap <leader>to :BufferCloseAllButCurrent<CR>
 
 " fzf
-noremap <leader>ag :Ag
-nnoremap <C-p> :Files<cr>
-nnoremap <leader>zf :BLines<cr>
-nnoremap <leader>zh :History:<cr>
+noremap <C-p> <cmd>lua require('fzf-lua').files()<CR>
+nnoremap <leader>zg <cmd>lua require('fzf-lua').grep()<CR>
+nnoremap <leader>zf <cmd>lua require('fzf-lua').blines()<CR>
+noremap <leader>zv <cmd>lua require('fzf-lua').tags_grep_visual()<CR>
 
 let g:fzf_preview_window = ['up:50%']
 
-"nerd tree
+" nerd tree
 nnoremap <leader>f <c-w>w
-
 let g:nvim_tree_git_hl = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_respect_buf_cwd = 1
 let g:nvim_tree_create_in_closed_folder = 1
-
 let g:nvim_tree_show_icons = {
     \ 'git': 1,
     \ 'folders': 1,
@@ -157,8 +142,8 @@ let g:nvim_tree_icons = {
     \   }
     \ }
 
-nnoremap <leader>b :NvimTreeToggle<CR>
-nnoremap <leader>ee :NvimTreeFindFile<CR>
+nnoremap <leader>rb :NvimTreeToggle<CR>
+nnoremap <leader>re :NvimTreeFindFile<CR>
 set termguicolors 
 
 " nerd commenter
@@ -176,8 +161,6 @@ let g:closetag_regions =  {
 set hidden
 set nobackup
 set nowritebackup
-set cmdheight=2
-set updatetime=300
 set shortmess+=c
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   set signcolumn=number
@@ -203,12 +186,13 @@ function! CheckBackspace() abort
 endfunction
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gu <Plug>(coc-references)
-nmap <leader>ac <Plug>(coc-codeaction)
-
-nnoremap <silent> gh :call ShowDocumentation()<cr>
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gy <Plug>(coc-type-definition)
+nmap <silent>gu <Plug>(coc-references)
+nmap <silent>ga <Plug>(coc-codeaction)
+nmap <silent>gn :CocNext<cr>	
+nmap <silent>gp :CocPrev<cr>
+nmap <silent> gh :call ShowDocumentation()<cr>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -225,4 +209,3 @@ let g:coc_global_extensions = [
 \ 'coc-eslint', 
 \ 'coc-snippets', 
 \ ]
-
