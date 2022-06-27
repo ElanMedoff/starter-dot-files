@@ -1,1 +1,0 @@
-/Users/elanmedoff/.config/nvim/lua
