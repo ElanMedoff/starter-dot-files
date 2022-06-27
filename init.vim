@@ -33,7 +33,7 @@ inoremap ∆ <esc>:m .+1<cr>==gi
 inoremap ˚ <esc>:m .-2<cr>==gi
 vnoremap ∆ :m '>+1<cr>gv=gv
 vnoremap ˚ :m '<-2<cr>gv=gv
-nnoremap <leader>gd :tabdo :Gvdiffsplit<cr>
+nnoremap <leader>gn :w<cr>:w<cr>
 nnoremap <leader>' "
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>gb :Git blame<cr>
@@ -41,7 +41,7 @@ nnoremap <leader>rr viwp
 nnoremap <leader>r; @:
 nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
-nnoremap <leader>qn :cnext<cr>	
+nnoremap <leader>qn :cnext<cr>
 nnoremap <leader>qp :cprevious<cr>
 
 let mapleader=" "
@@ -144,7 +144,7 @@ let g:nvim_tree_icons = {
 
 nnoremap <leader>rb :NvimTreeToggle<CR>
 nnoremap <leader>re :NvimTreeFindFile<CR>
-set termguicolors 
+set termguicolors
 
 " nerd commenter
 filetype plugin on
@@ -190,9 +190,10 @@ nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gy <Plug>(coc-type-definition)
 nmap <silent>gu <Plug>(coc-references)
 nmap <silent>ga <Plug>(coc-codeaction)
-nmap <silent>gn :CocNext<cr>	
+nmap <silent>gn :CocNext<cr>
 nmap <silent>gp :CocPrev<cr>
-nmap <silent> gh :call ShowDocumentation()<cr>
+nmap <silent>gh :call ShowDocumentation()<cr>
+nmap <silent>go <C-o>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -204,8 +205,8 @@ endfunction
 
 let g:coc_global_extensions = [
 \ 'coc-tsserver',
-\ 'coc-prettier', 
-\ 'coc-json', 
-\ 'coc-eslint', 
-\ 'coc-snippets', 
+\ 'coc-prettier',
+\ 'coc-json',
+\ 'coc-eslint',
+\ 'coc-snippets',
 \ ]
