@@ -58,12 +58,10 @@ set noswapfile
 
 " theme
 colorscheme oceanicnext
-"let g:vscode_italic_comment = 1
-"set background=dark
 
 " folding
 set foldmethod=syntax
-set foldcolumn=1
+set foldcolumn=0
 let javaScript_fold=1
 set foldlevelstart=99
 nnoremap <leader>u za
@@ -103,45 +101,8 @@ noremap <leader>zv <cmd>lua require('fzf-lua').tags_grep_visual()<CR>
 
 let g:fzf_preview_window = ['up:50%']
 
-" nerd tree
+" nvim tree
 nnoremap <leader>f <c-w>w
-let g:nvim_tree_git_hl = 1
-let g:nvim_tree_highlight_opened_files = 1
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_respect_buf_cwd = 1
-let g:nvim_tree_create_in_closed_folder = 1
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ 'folder_arrows': 1,
-    \ }
-
-" will show icon by default if no icon is provided
-let g:nvim_tree_icons = {
-    \ 'default': "",
-    \ 'symlink': "",
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★",
-    \   'deleted': "",
-    \   'ignored': "◌"
-    \   },
-    \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
-    \   }
-    \ }
-
 nnoremap <leader>rb :NvimTreeToggle<CR>
 nnoremap <leader>re :NvimTreeFindFile<CR>
 set termguicolors

@@ -1,0 +1,36 @@
+package.path = package.path .. ";../?.lua"
+local h = require("elan.helpers")
+
+require("nvim-tree").setup({
+    open_on_tab = true,
+    hijack_cursor = true,
+    hijack_unnamed_buffer_when_opening = true,
+    view = {
+        mappings = {
+            custom_only = false,
+            list = {
+                { key = "Y", action = "copy_path" },
+                { key = "<CR>", action = "tabnew" },
+                { key = "s", action = "" },
+            },
+        },
+    },
+    renderer = {
+        highlight_opened_files = "all",
+        highlight_git = true,
+    },
+    diagnostics = {
+        enable = true,
+        show_on_dirs = false,
+        icons = {
+            hint = "",
+            info = "",
+            warning = "",
+            error = "",
+        },
+    },
+})
+
+h.nmap("<leader>f", "<C-w>w")
+h.nmap("<leader>rb", ":NvimTreeToggle<CR>")
+h.nmap("<leader>re", ":NvimTreeFindFile<CR>")

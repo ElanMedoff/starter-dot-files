@@ -1,8 +1,8 @@
-require'lightspeed'.setup {
+require("lightspeed").setup({
   ignore_case = true,
-}
-require("toggleterm").setup{}
-require'nvim-tree'.setup {
+})
+require("toggleterm").setup({})
+require("nvim-tree").setup({
   open_on_tab = true,
   view = {
     mappings = {
@@ -10,9 +10,8 @@ require'nvim-tree'.setup {
       list = {
         { key = "Y", action = "copy_path" },
         { key = "<CR>", action = "tabnew" },
-        { key = "s", action = "" }
+        { key = "s", action = "" },
       },
     },
   },
-}
-
+})
