@@ -17,11 +17,12 @@ comment.setup({
       location = location,
     })
   end,
-
+  -- single line
   toggler = {
     line = "<leader>cc",
     block = "<leader>bb",
   },
+  -- multiple lines
   opleader = {
     line = "<leader>mc",
     block = "<leader>mb",

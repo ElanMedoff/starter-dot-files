@@ -1,5 +1,5 @@
 local function map(mode, shortcut, command)
-  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true }) -- silent prevents from populating the command bar
 end
 
 local function nmap(shortcut, command)

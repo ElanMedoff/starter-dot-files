@@ -2,12 +2,10 @@ package.path = package.path .. ";../?.lua"
 local h = require("elan.helpers")
 
 require("nvim-tree").setup({
-  open_on_tab = true,
+  open_on_tab = true, -- makes the tree seem separate from the tabs
   hijack_cursor = true,
-  hijack_unnamed_buffer_when_opening = true,
   view = {
     mappings = {
-      custom_only = false,
       list = {
         { key = "Y", action = "copy_path" },
         { key = "<CR>", action = "tabnew" },
@@ -31,6 +29,5 @@ require("nvim-tree").setup({
   },
 })
 
-h.nmap("<leader>f", "<C-w>w")
 h.nmap("<leader>rb", ":NvimTreeToggle<CR>")
 h.nmap("<leader>re", ":NvimTreeFindFile<CR>")

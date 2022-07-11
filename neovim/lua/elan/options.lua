@@ -6,17 +6,15 @@ vim.cmd("colorscheme tokyonight")
 h.set.clipboard = "unnamedplus" -- os clipboard
 h.set.number = true
 h.set.errorbells = false
-h.set.mouse = "a"
-h.set.confirm = true
-h.set.linebreak = true
+h.set.mouse = "a" -- allow mouse to click, scroll
+h.set.confirm = true -- prompt to save before quitting
+h.set.linebreak = true -- won't break on word when wrapping
 h.set.termguicolors = true -- needed for modern themes
 h.set.fileencoding = "utf-8"
 h.set.signcolumn = "yes" -- needed for linting symbols
-h.set.wrap = false -- wont break on word when wrapping
 h.set.showmode = false -- disrupts lualine
 h.set.lazyredraw = true
 h.set.cursorline = true
--- h.set.cursorcolumn = true
 
 -- backups
 h.set.swapfile = false
@@ -34,11 +32,11 @@ h.set.foldmethod = "syntax"
 h.set.foldcolumn = "0"
 h.set.foldlevelstart = 99
 h.let.javaScript_fold = 1
-h.nmap("<leader>u", "za")
+h.nmap("<leader>u", "za") -- toggle fold
 
 -- search
 h.set.ignorecase = true
-h.nmap("<leader>/t", ":noh<cr>")
+h.nmap("<leader>/t", ":noh<cr>") -- turn off highlighting
 
 -- search case sensitive, whole word, and both
 vim.cmd([[

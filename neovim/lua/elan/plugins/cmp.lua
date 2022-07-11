@@ -71,11 +71,6 @@ cmp.setup({
     { name = "buffer" },
     { name = "path" },
   },
-  -- TODO: find in the docs
-  confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = false,
-  },
   window = {
     documentation = cmp.config.window.bordered(),
   },

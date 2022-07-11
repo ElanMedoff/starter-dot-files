@@ -14,5 +14,5 @@ require("fzf-lua").setup({
 
 h.nmap("<C-p>", [[<cmd>lua require('fzf-lua').files()<CR>]])
 h.nmap("<leader>zg", [[<cmd>lua require('fzf-lua').grep()<CR>]])
-h.nmap("<leader>zf", [[<cmd>lua require('fzf-lua').blines()<CR>]])
+h.nmap("<leader>zf", [[<cmd>lua require('fzf-lua').blines()<CR>]]) -- within file
 h.nmap("<leader>zl", [[<cmd>lua require('fzf-lua').grep_last()<CR>]])

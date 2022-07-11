@@ -3,7 +3,7 @@ local autopairs = require("nvim-autopairs")
 
 autopairs.setup({
   check_ts = true,
-  fast_wrap = {},
+  fast_wrap = {}, -- TODO: figure out fast wrap
 })
 
 -- https://github.com/windwp/nvim-autopairs#you-need-to-add-mapping-cr-on-nvim-cmp-setupcheck-readmemd-on-nvim-cmp-repo

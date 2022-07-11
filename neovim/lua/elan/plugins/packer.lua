@@ -44,6 +44,7 @@ return packer.startup({
     use("tpope/vim-surround")
     use("lewis6991/gitsigns.nvim")
     use("tpope/vim-fugitive")
+    use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
     use("ggandor/lightspeed.nvim")
     use("nvim-lualine/lualine.nvim")
     use("easymotion/vim-easymotion")
