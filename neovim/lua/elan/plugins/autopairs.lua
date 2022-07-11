@@ -2,8 +2,8 @@
 local autopairs = require("nvim-autopairs")
 
 autopairs.setup({
-    check_ts = true,
-    fast_wrap = {},
+  check_ts = true,
+  fast_wrap = {},
 })
 
 -- https://github.com/windwp/nvim-autopairs#you-need-to-add-mapping-cr-on-nvim-cmp-setupcheck-readmemd-on-nvim-cmp-repo

@@ -1,3 +1,3 @@
 require("lightspeed").setup({
-    ignore_case = true,
+  ignore_case = true,
 })
