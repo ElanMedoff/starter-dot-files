@@ -40,11 +40,13 @@ return packer.startup({
     use({ "junegunn/fzf", run = "./install --bin" })
     use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 
-    use("akinsho/toggleterm.nvim")
-    use("tpope/vim-surround")
+    -- git
     use("lewis6991/gitsigns.nvim")
     use("tpope/vim-fugitive")
     use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+
+    use("akinsho/toggleterm.nvim")
+    use("tpope/vim-surround")
     use("ggandor/lightspeed.nvim")
     use("nvim-lualine/lualine.nvim")
     use("easymotion/vim-easymotion")

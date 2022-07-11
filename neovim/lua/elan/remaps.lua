@@ -22,6 +22,8 @@ h.vmap(">", ">gv")
 h.nmap("<leader>f", "<C-w>w") -- toggle
 h.nmap("<leader>h", "<C-w>h") -- left
 h.nmap("<leader>l", "<C-w>l") -- right
+h.nmap("<leader>j", "<C-w>j") -- right
+h.nmap("<leader>k", "<C-w>k") -- right
 
 -- quickfix list
 h.nmap("gn", ":cnext<cr>")
