@@ -18,6 +18,8 @@ h.nmap("<leader>mp", ":MarkdownPreview<cr>")
 h.nmap("<leader>s", ":w<cr>")
 h.nmap("<leader>w", ":q<cr>")
 h.nmap("<leader>q", ":qa<cr>")
+h.nmap("<leader>yy", [[:let @+ = expand("%")<cr>]])
+h.vmap("<leader>yy", [[:let @+ = expand("%")<cr>]])
 
 -- keeps lines highlighted while indenting
 h.vmap("<", "<gv")
