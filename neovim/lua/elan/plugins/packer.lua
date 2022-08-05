@@ -51,7 +51,6 @@ return packer.startup({
     use("nvim-lualine/lualine.nvim")
     use("easymotion/vim-easymotion")
     use("psliwka/vim-smoothie")
-    use("windwp/nvim-autopairs")
     use({ "kevinhwang91/nvim-bqf", ft = "qf" })
     use({
       "romgrk/barbar.nvim",
@@ -63,21 +62,10 @@ return packer.startup({
     use("kyazdani42/nvim-web-devicons")
     use("kyazdani42/nvim-tree.lua")
 
-    -- cmp
-    use("hrsh7th/nvim-cmp")
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-path")
-    use("hrsh7th/cmp-cmdline")
-    use("saadparwaiz1/cmp_luasnip")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-nvim-lua")
-    use("L3MON4D3/LuaSnip")
-
-    -- lsp
-    use("neovim/nvim-lspconfig")
-    use("williamboman/nvim-lsp-installer")
-    use("jose-elias-alvarez/null-ls.nvim")
-    use("MunifTanjim/prettier.nvim")
+    use({
+      "neoclide/coc.nvim",
+      branch = "release",
+    })
 
     -- treesitter
     use({
@@ -86,7 +74,7 @@ return packer.startup({
     })
     use("p00f/nvim-ts-rainbow")
     use("windwp/nvim-ts-autotag")
-    use({ "prettier/vim-prettier", run = "yarn install --frozen-lockfile --production" })
+    -- use({ "prettier/vim-prettier", run = "yarn install --frozen-lockfile --production" })
 
     -- commenting
     use("numToStr/Comment.nvim")

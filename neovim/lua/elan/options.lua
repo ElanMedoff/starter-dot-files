@@ -1,7 +1,7 @@
 package.path = package.path .. ";../?.lua"
 local h = require("elan.helpers")
 
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme vscode")
 
 h.set.clipboard = "unnamedplus" -- os clipboard
 h.set.number = true
@@ -28,10 +28,9 @@ h.set.softtabstop = 2 -- number of spaces to delete when deleting a tab
 h.set.shiftwidth = 2 -- number of spaces to insert/delete when in insert mode
 
 -- folding
-h.set.foldmethod = "syntax"
-h.set.foldcolumn = "0"
-h.set.foldlevelstart = 99
-h.let.javaScript_fold = 1
+h.set.foldmethod="indent"
+h.set.foldcolumn='0'
+h.set.foldlevelstart=99
 h.nmap("<leader>u", "za") -- toggle fold
 
 -- search
