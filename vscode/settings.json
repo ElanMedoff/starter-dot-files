@@ -9,6 +9,7 @@
   "editor.linkedEditing": true,
   "editor.autoClosingBrackets": "always",
   "editor.smoothScrolling": true,
+  "editor.scrollBeyondLastLine": true,
 
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
@@ -17,8 +18,11 @@
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
   "workbench.iconTheme": "vscode-icons",
+  "workbench.editor.enablePreview": false,
 
   "window.zoomLevel": 2,
+  "window.restoreWindows": "none",
+
   "extensions.ignoreRecommendations": true,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
@@ -46,11 +50,14 @@
       "after": [""]
     }
   ],
-  "vim.leader": "<space>",
+  "vim.leader": ",",
   "vim.cursorStylePerMode.normal": "block-outline",
   "vim.cursorStylePerMode.visual": "block-outline",
   "vim.cursorStylePerMode.visualblock": "block-outline",
   "vim.cursorStylePerMode.visualline": "block-outline",
   "vim.cursorStylePerMode.replace": "block-outline",
-  "vim.cursorStylePerMode.insert": "line"
+  "vim.cursorStylePerMode.insert": "line",
+
+  "vscode-neovim.neovimExecutablePaths.darwin": "/path/to/nvim",
+  "vscode-neovim.neovimInitVimPaths.darwin": "/path/to/init.vim"
 }

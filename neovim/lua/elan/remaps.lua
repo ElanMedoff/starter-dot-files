@@ -13,6 +13,11 @@ h.nmap([[<leader>']], [["]])
 h.nmap("<leader>gb", ":Git blame")
 h.nmap("<leader>gd", ":DiffviewOpen<cr>")
 h.nmap("<leader>gq", ":DiffviewClose<cr>")
+h.nmap("<leader>vs", ":vsplit<cr>")
+h.nmap("<leader>mp", ":MarkdownPreview<cr>")
+h.nmap("<leader>s", ":w<cr>")
+h.nmap("<leader>w", ":q<cr>")
+h.nmap("<leader>q", ":qa<cr>")
 
 -- keeps lines highlighted while indenting
 h.vmap("<", "<gv")
