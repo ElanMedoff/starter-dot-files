@@ -15,9 +15,12 @@ h.nmap("<leader>gd", ":DiffviewOpen<cr>")
 h.nmap("<leader>gq", ":DiffviewClose<cr>")
 h.nmap("<leader>vs", ":vsplit<cr>")
 h.nmap("<leader>mp", ":MarkdownPreview<cr>")
+
 h.nmap("<leader>s", ":w<cr>")
 h.nmap("<leader>w", ":q<cr>")
 h.nmap("<leader>q", ":qa<cr>")
+
+-- copy path of file
 h.nmap("<leader>yy", [[:let @+ = expand("%")<cr>]])
 h.vmap("<leader>yy", [[:let @+ = expand("%")<cr>]])
 
@@ -35,7 +38,7 @@ h.nmap("<leader>k", "<C-w>k") -- right
 -- quickfix list
 h.nmap("gn", ":cnext<cr>")
 h.nmap("gp", ":cprevious<cr>")
-h.nmap("go", ":copen<cr>")
+h.nmap("ge", ":copen<cr>")
 h.nmap("gq", ":cclose<cr>")
 
 -- move lines up and down with alt-j, alt-k

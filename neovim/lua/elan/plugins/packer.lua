@@ -1,16 +1,16 @@
 -- bootstrap packer
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = vim.fn.system({
-    "git",
-    "clone",
-    "--depth",
-    "1",
-    "https://github.comewbthomason/packer.nvim",
-    install_path,
-  })
-  print("Installing packer close and reopen Neovim...")
-  vim.cmd([[packadd packer.nvim]])
+	PACKER_BOOTSTRAP = vim.fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.comewbthomason/packer.nvim",
+		install_path,
+	})
+	print("Installing packer close and reopen Neovim...")
+	vim.cmd([[packadd packer.nvim]])
 end
 
 -- reloads neovim whenever you save the file
@@ -25,78 +25,76 @@ vim.cmd([[
 local packer = require("packer")
 
 return packer.startup({
-  function(use)
-    use("wbthomason/packer.nvim")
-    use("nvim-lua/popup.nvim") -- an implementation of the Popup API from vim in Neovim
-    use("nvim-lua/plenary.nvim") -- lua functions used in lots of plugins
+	function(use)
+		use("wbthomason/packer.nvim")
+		use("nvim-lua/popup.nvim") -- an implementation of the Popup API from vim in Neovim
+		use("nvim-lua/plenary.nvim") -- lua functions used in lots of plugins
 
-    -- themes
-    use("mhartington/oceanic-next")
-    use("morhetz/gruvbox")
-    use("ElanMedoff/vscode.nvim")
-    use("ElanMedoff/tokyonight.nvim")
+		-- misc
+		use("akinsho/toggleterm.nvim")
+		use("tpope/vim-surround")
+		use("ggandor/lightspeed.nvim")
+		use("nvim-lualine/lualine.nvim")
+		use("easymotion/vim-easymotion")
+		use("psliwka/vim-smoothie")
+		use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+		use({
+			"romgrk/barbar.nvim",
+			requires = { "kyazdani42/nvim-web-devicons" },
+		})
+		use("mg979/vim-visual-multi")
+		use({
+			"iamcco/markdown-preview.nvim",
+			run = "cd app && npm install",
+			setup = function()
+				vim.g.mkdp_filetypes = { "markdown" }
+			end,
+			ft = { "markdown" },
+		})
+		use({
+			"neoclide/coc.nvim",
+			branch = "release",
+		})
+		use("jose-elias-alvarez/null-ls.nvim")
+		use("lukas-reineke/indent-blankline.nvim")
+		use("tpope/vim-repeat")
 
-    -- fzf
-    use({ "junegunn/fzf", run = "./install --bin" })
-    use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
+		-- themes
+		use("ElanMedoff/vscode.nvim")
+		use("ElanMedoff/tokyonight.nvim")
 
-    -- git
-    use("lewis6991/gitsigns.nvim")
-    use("tpope/vim-fugitive")
-    use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+		-- fzf
+		use({ "junegunn/fzf", run = "./install --bin" })
+		use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 
-    use("akinsho/toggleterm.nvim")
-    use("tpope/vim-surround")
-    use("ggandor/lightspeed.nvim")
-    use("nvim-lualine/lualine.nvim")
-    use("easymotion/vim-easymotion")
-    use("psliwka/vim-smoothie")
-    use({ "kevinhwang91/nvim-bqf", ft = "qf" })
-    use({
-      "romgrk/barbar.nvim",
-      requires = { "kyazdani42/nvim-web-devicons" },
-    })
-    use("mg979/vim-visual-multi")
+		-- git
+		use("lewis6991/gitsigns.nvim")
+		use("tpope/vim-fugitive")
+		use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 
-    -- tree
-    use("kyazdani42/nvim-web-devicons")
-    use("kyazdani42/nvim-tree.lua")
+		-- tree
+		use("kyazdani42/nvim-web-devicons")
+		use("kyazdani42/nvim-tree.lua")
 
-    use({
-      "neoclide/coc.nvim",
-      branch = "release",
-    })
+		-- treesitter
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			run = ":TSUpdate",
+		})
+		use("p00f/nvim-ts-rainbow")
+		use("windwp/nvim-ts-autotag")
 
-    -- treesitter
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-    })
-    use("p00f/nvim-ts-rainbow")
-    use("windwp/nvim-ts-autotag")
-    -- use({ "prettier/vim-prettier", run = "yarn install --frozen-lockfile --production" })
+		-- commenting
+		use("numToStr/Comment.nvim")
+		use("JoosepAlviste/nvim-ts-context-commentstring")
 
-    -- commenting
-    use("numToStr/Comment.nvim")
-    use("JoosepAlviste/nvim-ts-context-commentstring")
-
-    -- markdown
-    use({
-      "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
-      setup = function()
-        vim.g.mkdp_filetypes = { "markdown" }
-      end,
-      ft = { "markdown" },
-    })
-
-    if PACKER_BOOTSTRAP then
-      require("packer").sync()
-    end
-  end,
-  config = {
-    display = {
-      open_fn = require("packer.util").float,
-    },
-  },
+		if PACKER_BOOTSTRAP then
+			require("packer").sync()
+		end
+	end,
+	config = {
+		display = {
+			open_fn = require("packer.util").float,
+		},
+	},
 })

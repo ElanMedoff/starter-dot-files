@@ -15,10 +15,11 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ CheckBackSpace() ? "\<TAB>" :
+      \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
 
 inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm()
@@ -49,4 +50,3 @@ nnoremap <silent>gh :call ShowDocumentation()<cr>
 
 h.nmap("go", "<c-o>")
 h.nmap("gi", "<c-i>")
-

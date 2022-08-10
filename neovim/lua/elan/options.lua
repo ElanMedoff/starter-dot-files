@@ -15,6 +15,7 @@ h.set.signcolumn = "yes" -- needed for linting symbols
 h.set.showmode = false -- disrupts lualine
 h.set.lazyredraw = true
 h.set.cursorline = true
+h.set.splitright = true
 
 -- backups
 h.set.swapfile = false
@@ -28,9 +29,9 @@ h.set.softtabstop = 2 -- number of spaces to delete when deleting a tab
 h.set.shiftwidth = 2 -- number of spaces to insert/delete when in insert mode
 
 -- folding
-h.set.foldmethod="indent"
-h.set.foldcolumn='0'
-h.set.foldlevelstart=99
+h.set.foldmethod = "indent"
+h.set.foldcolumn = "0"
+h.set.foldlevelstart = 99
 h.nmap("<leader>u", "za") -- toggle fold
 
 -- search
