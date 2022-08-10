@@ -1,6 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["*"],
   "coc.preferences.useQuickfixForLocations": true,
-  "snippets.textmateSnippetsRoots": ["/Users/elanmedoff/.config/nvim/snippets"],
+  "snippets.textmateSnippetsRoots": ["path/to/snippets"],
   "diagnostic.checkCurrentLine": true
 }

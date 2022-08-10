@@ -38,14 +38,4 @@ decrypt() {openssl des -d -in $1.enc -out $1}
 gd() {
   nvim -p $(git diff --name-only) -c ":tabdo :Gvdiffsplit"
 }
-n() {
-    tmux new-session -d -s "n"
-    window=0
-    tmux rename-window -t 'n':0 'nvim'
-    tmux send-keys 'nvim ' $1 C-m
-    window=1
-    tmux new-window -t 'n':1
-    tmux select-window -t 'n':0
-    tmux attach-session -t 'n'
-}
 

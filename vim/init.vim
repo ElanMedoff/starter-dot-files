@@ -1,15 +1,11 @@
 call plug#begin('~/.config/nvim/plugged')
-" themes
-Plug 'mhartington/oceanic-next'
-Plug 'morhetz/gruvbox'
-Plug 'Mofiqul/vscode.nvim'
-"fzf
+Plug 'ElanMedoff/vscode.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
-
 Plug 'akinsho/toggleterm.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'alvan/vim-closetag'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'nvim-lualine/lualine.nvim'
@@ -17,52 +13,71 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim'
 Plug 'psliwka/vim-smoothie'
-Plug 'HerringtonDarkholme/yats.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'romgrk/barbar.nvim'
+Plug 'mg979/vim-visual-multi'
+Plug 'kevinhwang91/nvim-bqf'
 call plug#end()
 
 lua require('init')
 
-" move lines with alt j, alt k
+" set leader before using in remaps below
+let mapleader=" "
+
+" move lines with alt j, alt k in all modes
 nnoremap ∆ :m .+1<cr>==
 nnoremap ˚ :m .-2<cr>==
 inoremap ∆ <esc>:m .+1<cr>==gi
 inoremap ˚ <esc>:m .-2<cr>==gi
 vnoremap ∆ :m '>+1<cr>gv=gv
 vnoremap ˚ :m '<-2<cr>gv=gv
-nnoremap <leader>gn :w<cr>:w<cr>
-nnoremap <leader>' "
+
 nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>gb :Git blame<cr>
 nnoremap <leader>rr viwp
-nnoremap <leader>r; @:
 nnoremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
-nnoremap <leader>qn :cnext<cr>
-nnoremap <leader>qp :cprevious<cr>
+" repeat last command
+nnoremap <leader>r; @:
+" open in vertical split
+nnoremap <leader>vs :vsplit<cr>
 
-let mapleader=" "
+nnoremap <leader>s :w<cr>
+nnoremap <leader>w :q<cr>
+nnoremap <leader>q :qa<cr>
+
+" copy path of file
+nnoremap <leader>yy :let @+ = expand("%")<cr>
+vnoremap <leader>yy :let @+ = expand("%")<cr>
+
+" keeps lines highlighted while indenting
+vnoremap > >gv
+vnoremap < <gv
+
 set clipboard=unnamedplus "copies to system clipboard
 
 " ui
 set number "number lines
 set cursorline "highlight current line
 set noerrorbells
-set mouse=a
-set confirm
-set showmode
+set mouse=a "allow mouse to click, scroll
+set confirm "prompt to save before quitting
+set noshowmode "show interferes with lualine
+set nolinebreak "won't break on word when wrapping
+set splitright
+
+" disable backups
 set noswapfile
+set nobackup
+set nowritebackup
 
 " theme
-colorscheme oceanicnext
+colorscheme vscode
 
 " folding
-set foldmethod=syntax
+set foldmethod=indent
 set foldcolumn=0
-let javaScript_fold=1
 set foldlevelstart=99
 nnoremap <leader>u za
 
@@ -74,18 +89,18 @@ noremap <leader>/t :noh<cr>
 noremap <leader>cw /\<\>\C<left><left><left><left>
 
 " text rendering
-set linebreak " avoid wrapping line in middle of word
+set linebreak "avoid wrapping line in middle of word
 
 " tab stuff
-set expandtab " use spaces in tabs
-set tabstop=4 " number of columns in a tab
-set softtabstop=4 " number of spaces to delete when deleting a tab
-set shiftwidth=4 " number of spaces to insert/delete when in insert mode
+set expandtab "use spaces in tabs
+set tabstop=2 "number of columns in a tab
+set softtabstop=2 "number of spaces to delete when deleting a tab
+set shiftwidth=2 "number of spaces to insert/delete when in insert mode
 
 " toggleterm
 autocmd TermEnter term://*toggleterm#*
-      \ tnoremap <silent><C-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-map <C-t> :ToggleTerm size=50 direction=vertical<CR>
+      \ tnoremap <silent><C-g> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+map <C-g> :ToggleTerm size=50 direction=vertical<CR>
 
 " barbar
 nnoremap <Leader>tw :BufferClose<cr>
@@ -95,9 +110,11 @@ nnoremap <leader>to :BufferCloseAllButCurrent<CR>
 
 " fzf
 noremap <C-p> <cmd>lua require('fzf-lua').files()<CR>
-nnoremap <leader>zg <cmd>lua require('fzf-lua').grep()<CR>
+nnoremap <leader>zr <cmd>lua require('fzf-lua').grep()<CR>
+nnoremap <leader>zg <cmd>lua require('fzf-lua').grep_project()<CR>
 nnoremap <leader>zf <cmd>lua require('fzf-lua').blines()<CR>
-noremap <leader>zv <cmd>lua require('fzf-lua').tags_grep_visual()<CR>
+noremap <leader>zl <cmd>lua require('fzf-lua').grep_last()<CR>
+noremap <leader>zw <cmd>lua require('fzf-lua').grep_cword()<CR>
 
 let g:fzf_preview_window = ['up:50%']
 
@@ -118,43 +135,13 @@ let g:closetag_regions =  {
   \ }
 
 " coc
-" basic setup
-set hidden
-set nobackup
-set nowritebackup
-set shortmess+=c
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=number
 
-" tab for autocomplete and snippet complete
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-let g:coc_snippet_next = '<tab>'
-
+" helper functions
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-" GoTo code navigation.
-nmap <silent>gd <Plug>(coc-definition)
-nmap <silent>gy <Plug>(coc-type-definition)
-nmap <silent>gu <Plug>(coc-references)
-nmap <silent>ga <Plug>(coc-codeaction)
-nmap <silent>gn :CocNext<cr>
-nmap <silent>gp :CocPrev<cr>
-nmap <silent>gh :call ShowDocumentation()<cr>
-nmap <silent>go <C-o>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -164,10 +151,37 @@ function! ShowDocumentation()
   endif
 endfunction
 
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" code navigation
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gy <Plug>(coc-type-definition)
+nmap <silent>gu <Plug>(coc-references)
+nmap <silent>ga <Plug>(coc-codeaction)
+nmap <silent>gh :call ShowDocumentation()<cr>
+" go back in navigation
+nmap <silent>go <C-o>
+" go forward in navigation
+nmap <silent>gi <C-i>
+
+" quick fix list
+nmap <silent>gn :cnext<cr>
+nmap <silent>gp :cprevious<cr>
+nmap <silent>ge :copen<cr>
+nmap <silent>gq :cclose<cr>
+
 let g:coc_global_extensions = [
 \ 'coc-tsserver',
 \ 'coc-prettier',
 \ 'coc-json',
 \ 'coc-eslint',
 \ 'coc-snippets',
+\ 'coc-pairs',
 \ ]

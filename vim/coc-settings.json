@@ -1,4 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["*"],
-  "snippets.textmateSnippetsRoots": ["path/to/global/vscode/snippets"]
+  "coc.preferences.useQuickfixForLocations": true,
+  "snippets.textmateSnippetsRoots": ["path/to/snippets"],
+  "diagnostic.checkCurrentLine": true
 }
