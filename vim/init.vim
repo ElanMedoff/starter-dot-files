@@ -25,6 +25,7 @@ lua require('init')
 
 " set leader before using in remaps below
 let mapleader=" "
+set clipboard=unnamedplus "copies to system clipboard
 
 " move lines with alt j, alt k in all modes
 nnoremap ∆ :m .+1<cr>==
@@ -55,8 +56,6 @@ vnoremap <leader>yy :let @+ = expand("%")<cr>
 vnoremap > >gv
 vnoremap < <gv
 
-set clipboard=unnamedplus "copies to system clipboard
-
 " ui
 set number "number lines
 set cursorline "highlight current line
@@ -65,7 +64,8 @@ set mouse=a "allow mouse to click, scroll
 set confirm "prompt to save before quitting
 set noshowmode "show interferes with lualine
 set nolinebreak "won't break on word when wrapping
-set splitright
+set splitright "when splitting vertically, open new buffer to the right
+set linebreak "avoid wrapping line in middle of word
 
 " disable backups
 set noswapfile
@@ -87,9 +87,6 @@ noremap <leader>/c /\C<left><left>
 noremap <leader>/w /\<\><left><left>
 noremap <leader>/t :noh<cr>
 noremap <leader>cw /\<\>\C<left><left><left><left>
-
-" text rendering
-set linebreak "avoid wrapping line in middle of word
 
 " tab stuff
 set expandtab "use spaces in tabs
@@ -115,8 +112,6 @@ nnoremap <leader>zg <cmd>lua require('fzf-lua').grep_project()<CR>
 nnoremap <leader>zf <cmd>lua require('fzf-lua').blines()<CR>
 noremap <leader>zl <cmd>lua require('fzf-lua').grep_last()<CR>
 noremap <leader>zw <cmd>lua require('fzf-lua').grep_cword()<CR>
-
-let g:fzf_preview_window = ['up:50%']
 
 " nvim tree
 nnoremap <leader>f <c-w>w
@@ -171,7 +166,7 @@ nmap <silent>go <C-o>
 " go forward in navigation
 nmap <silent>gi <C-i>
 
-" quick fix list
+" quickfix list
 nmap <silent>gn :cnext<cr>
 nmap <silent>gp :cprevious<cr>
 nmap <silent>ge :copen<cr>

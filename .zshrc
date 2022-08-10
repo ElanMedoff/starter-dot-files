@@ -13,8 +13,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
 
 source $ZSH/oh-my-zsh.sh
 
-# shift tab
-bindkey '^[[Z' autosuggest-execute
+bindkey '^ ' autosuggest-execute
 
 alias ga='git add'
 alias gs='git status'
