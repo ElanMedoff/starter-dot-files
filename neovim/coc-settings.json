@@ -1,6 +1,0 @@
-{
-  "coc.preferences.formatOnSaveFiletypes": ["*"],
-  "coc.preferences.useQuickfixForLocations": true,
-  "snippets.textmateSnippetsRoots": ["path/to/snippets"],
-  "diagnostic.checkCurrentLine": true
-}

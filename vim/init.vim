@@ -4,7 +4,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'akinsho/toggleterm.nvim'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'alvan/vim-closetag'
 Plug 'ggandor/lightspeed.nvim'
@@ -165,6 +164,7 @@ nmap <silent>gh :call ShowDocumentation()<cr>
 nmap <silent>go <C-o>
 " go forward in navigation
 nmap <silent>gi <C-i>
+nmap <leader>gh <c-w>w:close<cr>
 
 " quickfix list
 nmap <silent>gn :cnext<cr>
