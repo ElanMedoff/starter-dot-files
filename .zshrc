@@ -1,8 +1,8 @@
 export ZSH="/path/to/.oh-my-zsh"
-export PATH=$HOME/bin:/usr/local/bin:usr/local/sbin:$PATH
 
 # dedups path
 PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
+export PATH
 
 ZSH_THEME="elan"
 COMPLETION_WAITING_DOTS="true"
@@ -15,18 +15,20 @@ source $ZSH/oh-my-zsh.sh
 
 bindkey '^ ' autosuggest-execute
 
-alias ga='git add'
-alias gs='git status'
+alias ga="git add"
+alias gs="git status"
 alias gam="git add -A && git commit -m"
 alias gpush="git push origin HEAD"
-alias e='exit'
+alias e="exit"
 alias c="clear"
-alias ezsh='nvim ~/.zshrc'
-alias evim='nvim ~/.config/nvim/init.vim'
-alias etmux="vim ~/.tmux.conf"
-alias cats='highlight -O ansi --force'
+alias ezsh="nvim ~/.zshrc"
+alias evim="nvim ~/.config/nvim/init.vim"
+alias etmux="nvim ~/.config/tmux/tmux.conf"
+alias evim="nvim ~/.config/nvim"
+alias cats="highlight -O ansi --force"
 alias src="exec zsh"
 alias tsrc="tmux source ~/.tmux.conf"
+alias n="n.sh"
 
 mkcd () { mkdir $1 && cd $1 }
 cdl() { cd $1 && ls }
@@ -37,4 +39,6 @@ decrypt() {openssl des -d -in $1.enc -out $1}
 gd() {
   nvim -p $(git diff --name-only) -c ":tabdo :Gvdiffsplit"
 }
-
+gamp() {
+  gam $1 && gpush
+}

@@ -34,16 +34,6 @@
   "vim.hlsearch": false,
   "vim.overrideCopy": true,
   "vim.mouseSelectionGoesIntoVisualMode": false,
-  "vim.normalModeKeyBindings": [
-    {
-      "before": ["E"],
-      "after": ["g", "e"]
-    },
-    {
-      "before": ["q"],
-      "after": ["i"]
-    }
-  ],
   "vim.visualModeKeyBindings": [
     {
       "before": ["v"],
@@ -56,8 +46,5 @@
   "vim.cursorStylePerMode.visualblock": "block-outline",
   "vim.cursorStylePerMode.visualline": "block-outline",
   "vim.cursorStylePerMode.replace": "block-outline",
-  "vim.cursorStylePerMode.insert": "line",
-
-  "vscode-neovim.neovimExecutablePaths.darwin": "/path/to/nvim",
-  "vscode-neovim.neovimInitVimPaths.darwin": "/path/to/init.vim"
+  "vim.cursorStylePerMode.insert": "line"
 }
